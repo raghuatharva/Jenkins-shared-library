@@ -1,0 +1,7 @@
+apiVersion: v1
+name: backend   # this is the name we need to give for command --> helm install backend . 
+version: "0.2"
+description: backend variables are placed in this chart
+maintainers:
+  - name: raghu_H
+    email: raghu10indian@gmail.com

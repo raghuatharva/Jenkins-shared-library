@@ -1,0 +1,9 @@
+configmap:
+  dbhost: "mysql-dev.rohanandlife.site"
+deployment:
+  imageversion: IMAGE_VERSION
+  image: 180294178330.dkr.ecr.us-east-1.amazonaws.com/expense/dev/backend
+service:
+  port: 8080
+hpa:
+  CPU: 70
