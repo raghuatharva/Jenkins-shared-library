@@ -11,7 +11,7 @@ def call(Map configMap){
         environment {
             DEBUG = 'true'
             region= 'us-east-1'
-            account_id = '180294178330' // since CI is all about dev , we dont need different accounts
+            account_id = '180294178330' // since CI is all about dev environment, we dont need different accounts
             project = configMap.get("project")
             environment = 'dev'
             component = configMap.get("component")
@@ -29,6 +29,7 @@ def call(Map configMap){
                         APP_VERSION = sh(script: 'cd jenkins-backend-CI && git describe --tags --abbrev=0', returnStdout: true).trim()
                         echo "The latest version is ${APP_VERSION}"
                     }
+                    // this is the only and best way to get the tag version. clone it , cd into cloned repo and get the latest tag version. 
                 }
             }
             stage('Install Dependencies') {
@@ -98,10 +99,11 @@ def call(Map configMap){
                     // since we havent mentioned true or false, it will ask the user to select true or false in the confirmation box of jenkins console 
                 }
                 steps{
-                    build job: '../backend-cd', parameters: [
+                    build job: '../backend-cd', parameters: [ 
                         string(name: 'version', value: "$APP_VERSION"),
                         string(name: 'ENVIRONMENT', value: "$environment"),
                     ], wait: true
+                    // build job is '../backend-cd', not backend-cd because we are calling the job from multi branch pipeline. backend-cd job is not in the same folder; so "../" is used to go one level up
                     // wait: true means CI waits for the CD pipeline to complete or to success. if fails, then CI will also fail
                 }
             }
