@@ -26,8 +26,8 @@ def call(Map configMap){
                 steps {
                     script {
                         sh 'git clone https://github.com/raghuatharva/jenkins-backend.git'
-                        env.APP_VERSION = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
-                        echo "The latest version is ${env.APP_VERSION}"
+                        APP_VERSION = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+                        echo "The latest version is ${APP_VERSION}"
                     }
                 }
             }
@@ -86,8 +86,8 @@ def call(Map configMap){
                     withAWS(region: 'us-east-1', credentials: 'aws-creds') {
                     sh """
                     aws ecr get-login-password --region ${region} | docker login --username AWS --password-stdin ${account_id}.dkr.ecr.us-east-1.amazonaws.com
-                    docker build -t ${account_id}.dkr.ecr.${region}.amazonaws.com/${project}/${environment}/${component}:${env.APP_VERSION} .
-                    docker push ${account_id}.dkr.ecr.us-east-1.amazonaws.com/${project}/${environment}/${component}:${env.APP_VERSION}
+                    docker build -t ${account_id}.dkr.ecr.${region}.amazonaws.com/${project}/${environment}/${component}:${APP_VERSION} .
+                    docker push ${account_id}.dkr.ecr.us-east-1.amazonaws.com/${project}/${environment}/${component}:${APP_VERSION}
                     """
                     }
                 }
