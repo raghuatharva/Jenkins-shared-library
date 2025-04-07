@@ -1,4 +1,4 @@
-def get getAccountID(string environment) {
+def getAccountID(string environment) {
     switch (environment) {
         case 'dev':
             return '180294178330'
