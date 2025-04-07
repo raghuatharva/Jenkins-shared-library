@@ -25,7 +25,7 @@ def call(Map configMap){
             stage('read the version') {
                 steps {
                     script {
-                        sh 'git clone https://github.com/raghuatharva/jenkins-backend.git'
+                        sh 'git clone https://github.com/raghuatharva/jenkins-backend-CI.git'
                         APP_VERSION = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
                         echo "The latest version is ${APP_VERSION}"
                     }
