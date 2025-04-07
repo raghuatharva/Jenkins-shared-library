@@ -79,7 +79,7 @@ def call(map configMap){
                 // JUST WRITING THIS BLOCK IS NOT ENOUGH ; TO STOP THE PIPELINE , SONARQUBE SERVER SHOULD BE CONFIGURED WITH THE WEBHOOK; TO DO THAT GO TO SONAR SERVER --> ACCOUNT --> ADMIN --> CONFIGURATION --> WEBHOOKS and add this url ; < jenkins.rohanandlife.site:9000/sonarqube-webhook/ 
 
                 // this will check the quality gate status. if it is passed, then it will continue the pipeline. if it is failed, then it will abort the pipeline
-            }
+            //}
 
             stage('building docker image'){
                 steps{
@@ -99,8 +99,8 @@ def call(map configMap){
                 }
                 steps{
                     build job: 'backend-cd', parameters: [
-                        string(name: 'version', value: ${env.APP_VERSION}),
-                        string(name: 'ENVIRONMENT', value: ${environment}),
+                        string(name: 'version', value: "$APP_VERSION"),
+                        string(name: 'ENVIRONMENT', value: "$environment"),
                     ], wait: true
                     // wait: true means CI waits for the CD pipeline to complete or to success. if fails, then CI will also fail
                 }
@@ -120,3 +120,5 @@ def call(map configMap){
         }
     }
 }
+
+
