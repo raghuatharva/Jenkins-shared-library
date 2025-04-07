@@ -98,7 +98,7 @@ def call(Map configMap){
                     // since we havent mentioned true or false, it will ask the user to select true or false in the confirmation box of jenkins console 
                 }
                 steps{
-                    build job: 'backend-cd', parameters: [
+                    build job: '../backend-cd', parameters: [
                         string(name: 'version', value: "$APP_VERSION"),
                         string(name: 'ENVIRONMENT', value: "$environment"),
                     ], wait: true
